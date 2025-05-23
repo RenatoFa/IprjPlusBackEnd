@@ -1,0 +1,32 @@
+from models.otp import OTP
+from models.user import User
+
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from serializers.otp import OTPSerializer
+
+
+class OTPView(APIView):
+    def post(self, request):
+        serializer = OTPSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        email = serializer.validated_data['email']  # type: ignore
+        code = serializer.validated_data['otp']  # type: ignore
+
+        try:
+            user = User.objects.get(email=email)
+            otp = OTP.objects.filter(user=user, code=code).latest('created_at')
+        except (User.DoesNotExist, OTP.DoesNotExist):
+            return Response({'error': 'Código inválido.'}, status=400)
+
+        if not otp.is_valid():
+            return Response({'error': 'Código expirado.'}, status=400)
+
+        token = RefreshToken.for_user(user)
+        return Response({
+            'refresh': str(token),
+            'access': str(token.access_token),  # type: ignore
+        })
