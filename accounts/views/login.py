@@ -1,6 +1,8 @@
 import random
 
 from django.core.mail import send_mail
+from django.utils import timezone
+from django.contrib.auth.hashers import make_password
 
 from accounts.models.otp import Otp
 from accounts.models.user import User
@@ -20,11 +22,17 @@ class LoginView(APIView):
         try:
             user = User.objects.get(email=email, is_active=True)
         except User.DoesNotExist:
-            return Response({'error': 'Usuário inativo ou \
-                             não encontrado.'}, status=404)
+            return Response({'error': 'Usuário inativo ou não encontrado.'},
+                            status=404)
 
         otp_code = ''.join(random.choices('0123456789', k=6))
-        Otp.objects.create(user=user, code=otp_code)
+        hashed_otp = make_password(otp_code)
+
+        Otp.objects.update_or_create(user=user, defaults={
+            'code': hashed_otp,
+            'created_at': timezone.now()
+        }
+        )
 
         send_mail(
             'Seu código OTP - IPRJ Plus',
@@ -32,5 +40,6 @@ class LoginView(APIView):
             None,
             [user.email],
         )
-        return Response({'message': 'Código OTP \
-                         enviado por e-mail.'}, status=200)
+
+        return Response({'message': 'Código OTP enviado por e-mail.'},
+                        status=200)

@@ -13,20 +13,25 @@ class OTPView(APIView):
         serializer = OTPSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        email = serializer.validated_data['email']  # type: ignore
-        code = serializer.validated_data['otp']  # type: ignore
+        email = serializer.validated_data['email']
+        code = serializer.validated_data['otp']
 
         try:
             user = User.objects.get(email=email)
-            otp = Otp.objects.filter(user=user, code=code).latest('created_at')
+            otp = Otp.objects.filter(user=user).latest('created_at')
         except (User.DoesNotExist, Otp.DoesNotExist):
-            return Response({'error': 'Código inválido.'}, status=400)
+            return Response({'error':
+                             'Usuário não existe ou Otp não existe.'},
+                            status=400)
 
         if not otp.is_valid():
             return Response({'error': 'Código expirado.'}, status=400)
 
+        if not otp.check_code(code):
+            return Response({'error': 'Código inválido.'}, status=400)
+
         token = RefreshToken.for_user(user)
         return Response({
             'refresh': str(token),
-            'access': str(token.access_token),  # type: ignore
+            'access': str(token.access_token),
         })
