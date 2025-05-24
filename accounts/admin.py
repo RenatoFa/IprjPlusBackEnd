@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models.otp import OTP
+from .models.otp import Otp
 from .models.user import User
 
 
@@ -9,4 +9,4 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ['email', 'name', 'is_active']
 
 
-admin.site.register(OTP)
+admin.site.register(Otp)

@@ -2,20 +2,20 @@ import random
 
 from django.core.mail import send_mail
 
-from models.otp import OTP
-from models.user import User
+from accounts.models.otp import Otp
+from accounts.models.user import User
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from serializers.email import EmailSerializer
+from accounts.serializers.email import EmailSerializer
 
 
 class LoginView(APIView):
     def post(self, request):
         serializer = EmailSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        email = serializer.validated_data['email']  # type: ignore
+        email = serializer.validated_data['email']
 
         try:
             user = User.objects.get(email=email, is_active=True)
@@ -24,7 +24,7 @@ class LoginView(APIView):
                              não encontrado.'}, status=404)
 
         otp_code = ''.join(random.choices('0123456789', k=6))
-        OTP.objects.create(user=user, code=otp_code)
+        Otp.objects.create(user=user, code=otp_code)
 
         send_mail(
             'Seu código OTP - IPRJ Plus',

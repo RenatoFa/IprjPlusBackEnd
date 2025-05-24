@@ -13,7 +13,8 @@ class RegisterView(APIView):
         user = serializer.save()
         send_mail(
             'Conta criada - IPRJ Plus',
-            f'Olá {user.name}, sua conta foi criada com sucesso!\n\
+            f'Olá {user.name}, sua conta no IPRJ Plus foi criada \
+                com sucesso!\n\
                 Aguarde a ativação pelo administrador.',
             None,
             [user.email],

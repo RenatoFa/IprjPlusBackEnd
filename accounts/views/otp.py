@@ -1,11 +1,11 @@
-from models.otp import OTP
-from models.user import User
+from accounts.models.otp import Otp
+from accounts.models.user import User
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from serializers.otp import OTPSerializer
+from accounts.serializers.otp import OTPSerializer
 
 
 class OTPView(APIView):
@@ -18,8 +18,8 @@ class OTPView(APIView):
 
         try:
             user = User.objects.get(email=email)
-            otp = OTP.objects.filter(user=user, code=code).latest('created_at')
-        except (User.DoesNotExist, OTP.DoesNotExist):
+            otp = Otp.objects.filter(user=user, code=code).latest('created_at')
+        except (User.DoesNotExist, Otp.DoesNotExist):
             return Response({'error': 'Código inválido.'}, status=400)
 
         if not otp.is_valid():
