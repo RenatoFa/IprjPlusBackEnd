@@ -1,13 +1,13 @@
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin)
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 
 class UserManager(BaseUserManager):
     def create_user(self, email, name, date_of_birth, password=None):
         if not email:
-            msg = 'O email é obrigatório.'
-            raise ValueError(msg)
+            raise ValueError('O email é obrigatório.')
         user = self.model(
             email=self.normalize_email(email),
             name=name,
@@ -31,6 +31,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=255)
     date_of_birth = models.DateField()
+    avatar = CloudinaryField('image', default='media/avatars/default.png')
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
 

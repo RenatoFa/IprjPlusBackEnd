@@ -34,4 +34,7 @@ class OTPView(APIView):
         return Response({
             'refresh': str(token),
             'access': str(token.access_token),
+            'name': user.name,
+            'date_of_birth': user.date_of_birth,
+            'avatar_url': user.avatar.url,
         })
