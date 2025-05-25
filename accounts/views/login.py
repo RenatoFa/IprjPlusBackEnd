@@ -34,12 +34,12 @@ class LoginView(APIView):
         }
         )
 
-        # send_mail(
-        #     'Seu código OTP - IPRJ Plus',
-        #     f'Seu código de login é: {otp_code}\n\nEle expira em 10 minutos.',
-        #     None,
-        #     [user.email],
-        # )
-        print(otp_code)
+        send_mail(
+            'Seu código OTP - IPRJ Plus',
+            f'Seu código de login é: {otp_code}\n\nEle expira em 10 minutos.',
+            None,
+            [user.email],
+        )
+
         return Response({'message': 'Código OTP enviado por e-mail.'},
                         status=200)
