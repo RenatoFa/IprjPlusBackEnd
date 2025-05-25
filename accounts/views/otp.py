@@ -28,7 +28,7 @@ class OTPView(APIView):
             return Response({'error': 'Código expirado.'}, status=400)
 
         if not otp.check_code(code):
-            return Response({'error': 'Código inválido.'}, status=400)
+            return Response({'error': 'Código inválido.'}, status=401)
 
         token = RefreshToken.for_user(user)
         return Response({
