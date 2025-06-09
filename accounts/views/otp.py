@@ -37,4 +37,5 @@ class OTPView(APIView):
             'name': user.name,
             'date_of_birth': user.date_of_birth,
             'avatar_url': user.avatar.url,
+            'id': user.id
         })
