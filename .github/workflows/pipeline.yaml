@@ -19,5 +19,5 @@ jobs:
           - name: Instalar dependencias
             run: |
               uv venv .venv
-              uv pip install .
+              .venv/bin/uv pip install .
 
