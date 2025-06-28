@@ -2,13 +2,13 @@ name: Pipeline
 on: [push, pull_request]
 
 jobs:
-    test:
+    lint:
         runs-on: ubuntu-latest
 
         steps:
           - name: Checar código
             uses: actions/checkout@v3
-            
+
           - name: Instalar Python
             uses: actions/setup-python@v5
             with:
@@ -22,5 +22,9 @@ jobs:
           - name: Instalar dependencias
             run: |
               uv sync
+
+          - name: Rodar lint
+            run: |
+              make lint
 
 
