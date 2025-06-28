@@ -18,5 +18,5 @@ jobs:
 
           - name: Instalar dependencias
             run: |
-              uv install --dev
+              uv pip install
 
