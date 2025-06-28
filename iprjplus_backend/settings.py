@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-sj41xu@y=bian7$2am_y^a338)k5x*d&&gd1vd2!h)5l^rr^=+
 DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.15.5', 'localhost', '127.0.0.1',
-                 '0.0.0.0', 'iprjplusbackend.onrender.com']
+                 '0.0.0.0', 'iprjplusbackend-production.up.railway.app']
 
 
 # Application definition
