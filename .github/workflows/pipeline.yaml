@@ -6,6 +6,9 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+          - name: Checar código
+            uses: actions/checkout@v3
+            
           - name: Instalar Python
             uses: actions/setup-python@v5
             with:
