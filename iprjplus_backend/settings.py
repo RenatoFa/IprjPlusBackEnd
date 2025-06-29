@@ -30,6 +30,10 @@ DEBUG = True
 ALLOWED_HOSTS = ['192.168.15.5', 'localhost', '127.0.0.1',
                  '0.0.0.0', 'iprjplusbackend-production.up.railway.app']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://iprjplusbackend-production.up.railway.app',
+]
+
 
 # Application definition
 
