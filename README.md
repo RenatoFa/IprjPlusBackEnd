@@ -46,7 +46,7 @@ python manage.py runserver
 
 **IPRJ PLUS** is a mobile application developed as a Graduation Project at the Polytechnic Institute of UERJ. Its purpose is to foster agile and modern communication between students and professors, incorporating features inspired by social media into the academic environment.
 
-This repository hosts the backend, built using **Django** and **Django REST Framework**, which handles user authentication, notifications, profile management, and academic tweet operations.
+This repository hosts the backend, built using **Django** and **Django REST Framework**, which handles user authentication, profile management, and academic tweet operations.
 
 ### Features
 
