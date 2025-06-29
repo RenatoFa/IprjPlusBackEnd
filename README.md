@@ -4,7 +4,7 @@
 
 O **IPRJ PLUS** é uma aplicação mobile desenvolvida como Trabalho de Conclusão de Curso (TCC) no Instituto Politécnico da UERJ. Seu objetivo é promover a comunicação entre alunos e professores de forma ágil, moderna e funcional, reunindo recursos inspirados em redes sociais para o ambiente acadêmico.
 
-Este repositório contém o backend da aplicação, desenvolvido em **Django** e **Django REST Framework**, responsável por gerenciar autenticação de usuários, envio de notificações, gerenciamento de perfis e operações relacionadas a tweets acadêmicos.
+Este repositório contém o backend da aplicação, desenvolvido em **Django** e **Django REST Framework**, responsável por gerenciar autenticação de usuários, gerenciamento de perfis e operações relacionadas a tweets acadêmicos.
 
 ### Funcionalidades
 
